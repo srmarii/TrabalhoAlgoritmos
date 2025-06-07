@@ -1,12 +1,8 @@
 programa
 {
-	
-	//fazer segunda parte
-	
-	//ajeitar funções buscar
-	//consulta personalizada: busca por produtos acima de tal quantidade ou abaixo e intervalo de valores
+		
+	//formatar
 
-	//venda = fazer um vetor auxiliar 
 	
 	funcao inteiro buscar(cadeia nome, cadeia m1[][], inteiro contP){
 		//não existe
@@ -29,7 +25,7 @@ programa
 		const inteiro li = 4
 		const inteiro co = 2
 		cadeia m1[li][co], nome, desc
-		inteiro op, contP=0, opC, l, posicao
+		inteiro op, contP=0, l, posicao, posicao2
 		real m2[li][co], precoU, precoP, precoT, quantP, quantT, pag[3], quantVendas[li], acumuladorVendas
 		logico existe, continuar
 
@@ -97,32 +93,7 @@ programa
 								escreva("Este item já existe no sistema. Digite a quantidade a adicionar: ")
 								leia(quantP)
 								m2[posicao][0] = m2[posicao][0] + quantP
-							}
-					
-							
-						//	para(l = 0; l<li; l++){
-						//		se(nome==m1[l][0]){
-						//			existe = verdadeiro
-						//			escreva("Este item já existe no sistema. Digite a quantidade a adicionar: ")
-						//			leia(quantP)
-						//			m2[l][0] = m2[l][0] + quantP
-						//		} 
-						//	}
-						
-						//	se(nao existe){
-						//		m1[contP][0] = nome
-								
-						//		escreva("Digite a descrição: ")
-						//		leia(m1[contP][1])
-	
-						//		escreva("Digite a quantidade: ")
-						//		leia(m2[contP][0])
-	
-						//		escreva("Digite o preço: ")
-						//		leia(m2[contP][1])
-	
-						//		contP++
-						//	}	
+							}	
 						}
 									
 					pare
@@ -143,12 +114,14 @@ programa
 					caso 3:
 						escreva("Escreva o nome do produto para alterar: ")
 						leia(nome)
-						existe = falso
-						para(l=0; l<li; l++){
-							se(nome==m1[l][0] e nome != "#"){
-								existe = verdadeiro
+
+						posicao = buscar(nome, m1, contP)
 	
-								escreva("\nO que você deseja alterar?")
+						se(posicao == -1){
+							escreva("Não existe nenhum produto com esse nome no sistema")
+						} senao{
+							posicao2 = posicao
+							escreva("\nO que você deseja alterar?")
 								escreva("\n1- Nome")
 								escreva("\n2- Descrição")
 								escreva("\n3- Quantidade")
@@ -157,77 +130,66 @@ programa
 	
 								escolha(op){
 									caso 1:
-										existe = falso
 										escreva("\nDigite o novo nome: ")
 										leia(nome)
-										para(l=0; l<contP; l++){
-											se(nome==m1[l][0]){
-												existe = verdadeiro
-												escreva("Este item já existe no sistema.")
-											}
-										}
-										se(nao existe){
-											m1[l][0] = nome	
+										
+										posicao = buscar(nome, m1, contP)
+	
+										se(posicao != -1){
+											escreva("Este item já existe no sistema.")
+										} senao{
+											m1[posicao2][0] = nome
 										}								
 									pare
 									
 									caso 2:
 										escreva("\nDigite a nova descrição: ")
 										leia(desc)
-										m1[l][1] = desc
+										m1[posicao][1] = desc
 									pare
 									
 									caso 3:
 										escreva("\nDigite a nova quantidade: ")
 										leia(quantP)
-										m2[l][0] = quantP
+										m2[posicao][0] = quantP
 									pare
 									
 									caso 4:
 										escreva("\nDigite o novo preço: ")
 										leia(precoU)
-										m2[l][1] = precoU
+										m2[posicao][1] = precoU
 									pare
 									
 									caso contrario:
 										escreva("\nOpção inválida")
 								}
-						}	
-							se(nao existe){
-								escreva("Não existe nenhum produto com esse nome no sistema")
-							}
-					}		
+							
+						}
 					pare
 
 					//estoque = deletar um produto
 					caso 4:
 						escreva("Escreva o nome do produto para deletar")
 						leia(nome)
-						existe = falso
-						para(l=0; l<li; l++){
-							se(nome==m1[l][0] e nome != "#"){
-								existe = verdadeiro
-						
-							//	m1[l][0] = "#"
-							//	m1[l][1] = "#"
-							//	m2[l][0] = 0.0
-							//	m2[l][1] = 0.0
+
+						posicao = buscar(nome, m1, contP)
 	
-								m1[l][0] = m1[contP-1][0] 
-								m1[l][1] = m1[contP-1][0] 
-								m2[l][0] = m2[contP-1][0] 
-								m2[l][1] = m2[contP-1][0] 
+						se(posicao == -1){
+							escreva("Este item não existe no sistema.")
+						} senao{
+							m1[posicao][0] = m1[contP-1][0] 
+								m1[posicao][1] = m1[contP-1][0] 
+								m2[posicao][0] = m2[contP-1][0] 
+								m2[posicao][1] = m2[contP-1][0] 
 	
 									
 								contP--
 	
-								escreva("\nProduto '",l, "' excluído")
+								escreva("\nProduto '",posicao, "' excluído")
 								escreva("\nContador: ", contP)
-							}
-						}	
-							se(nao existe){
-								escreva("Não existe nenhum produto com esse nome no sistema")
-							}
+						}
+						
+					
 					pare
 
 					//estoque = ver um relatorio financeiro
@@ -260,70 +222,142 @@ programa
 						escreva("\n2- Quantidade")
 						escreva("\n3- Preço")
 						escreva("\nSua Opção: ")
-						leia(opC)
+						leia(op)
 	
-						escolha(opC) {
+						escolha(op) {
 							//estoque = consulta = por nome
 							caso 1: 
 								escreva("\nEscreva o nome do produto para buscar: ")
 								leia(nome)
-								existe = falso
-								para(l=0; l<li; l++){
-									se(nome==m1[l][0]){
-										existe = verdadeiro
-										escreva("\n----Produto ",l, "----")
-										escreva("\nNome do produto: ", m1[l][0], "\t")
-										escreva("\nDescrição do produto: ", m1[l][1], "\t")
-										escreva("\nQuantidade do produto: ", m2[l][0], "\t")
-										escreva("\nPreço do produto: ", m2[l][1], "\t")	
-									} 
-									
+
+								posicao = buscar(nome, m1, contP)
+	
+								se(posicao == -1){
+									escreva("Este item não existe no sistema.")
+								} senao{
+									escreva("\n----Produto ",posicao, "----")
+										escreva("\nNome do produto: ", m1[posicao][0], "\t")
+										escreva("\nDescrição do produto: ", m1[posicao][1], "\t")
+										escreva("\nQuantidade do produto: ", m2[posicao][0], "\t")
+										escreva("\nPreço do produto: ", m2[posicao][1], "\t")	
 								}
-								se(nao existe){
-									escreva("Não existe nenhum produto com esse nome no sistema")
-								}
+								
+						
 							pare
 
 							//estoque = consulta = por quantidade
 							caso 2: 
-								escreva("\nEscreva a quantidade do produto para buscar: ")
-								leia(quantP)
-								existe = falso
-								para(l=0; l<li; l++){
-									se(quantP==m2[l][0]){
-										existe = verdadeiro
+								escreva("\nVocê deseja buscar um produto:")
+								escreva("\n1- Acima de uma quantidade x?")
+								escreva("\n2- Abaixo de uma quantidade x?")
+								escreva("\n\nSua opção: ")
+								leia(op)
+
+								escolha(op){
+									//estoque = consulta = por quantidade = MAIOR
+									caso 1:
+										escreva("\nEscreva a quantidade para buscar produtos iguais a ela ou maiores: ")
+									leia(quantP)
+									existe = falso
+									para(l=0; l<li; l++){
+										se(quantP<=m2[l][0] e m1[l][0] != "#"){
+											existe = verdadeiro
 											escreva("\n----Produto ",l, "----")
 											escreva("\nNome do produto: ", m1[l][0], "\t")
 											escreva("\nDescrição do produto: ", m1[l][1], "\t")
 											escreva("\nQuantidade do produto: ", m2[l][0], "\t")
 											escreva("\nPreço do produto: ", m2[l][1], "\t")	
-									} 
+										} 
 									
-								}
+									}
 								se(nao existe){
-									escreva("Não existe nenhum produto com essa quantidade no sistema")
+									escreva("Não existe nenhum produto com essa quantidade ou maior no sistema")
 								}
+									pare
+
+									//estoque = consulta = por quantidade = MENOR
+									caso 2:
+										escreva("\nEscreva a quantidade para buscar produtos iguais a ela ou menores: ")
+									leia(quantP)
+									existe = falso
+									para(l=0; l<li; l++){
+										se(quantP>=m2[l][0] e m1[l][0] != "#"){
+											existe = verdadeiro
+											escreva("\n----Produto ",l, "----")
+											escreva("\nNome do produto: ", m1[l][0], "\t")
+											escreva("\nDescrição do produto: ", m1[l][1], "\t")
+											escreva("\nQuantidade do produto: ", m2[l][0], "\t")
+											escreva("\nPreço do produto: ", m2[l][1], "\t")	
+										} 
+									
+									}
+								se(nao existe){
+									escreva("Não existe nenhum produto com essa quantidade ou menor no sistema")
+								}
+									pare
+
+									caso contrario:
+										escreva("Opção inválida!")
+								}
+								
 							pare
 
 							//estoque = consulta = por preço
 							caso 3:
-								escreva("\nEscreva o preço do produto para buscar: R$")
-								leia(quantP)
-								existe = falso
-								para(l=0; l<li; l++){
-									se(quantP==m2[l][1]){
-										existe = verdadeiro
+								escreva("\nVocê deseja buscar um produto:")
+								escreva("\n1- Acima de um preço x?")
+								escreva("\n2- Abaixo de um preço x?")
+								escreva("\n\nSua opção: ")
+								leia(op)
+
+								escolha(op){
+									//estoque = consulta = por preço = MAIOR
+									caso 1:
+										escreva("\nEscreva o preço para buscar produtos iguais a ele ou maiores: R$")
+									leia(precoU)
+									existe = falso
+									para(l=0; l<li; l++){
+										se(precoU<=m2[l][1] e m1[l][0] != "#"){
+											existe = verdadeiro
 											escreva("\n----Produto ",l, "----")
 											escreva("\nNome do produto: ", m1[l][0], "\t")
 											escreva("\nDescrição do produto: ", m1[l][1], "\t")
 											escreva("\nQuantidade do produto: ", m2[l][0], "\t")
 											escreva("\nPreço do produto: ", m2[l][1], "\t")	
-									} 
+										} 
 									
-								}
+									}
 								se(nao existe){
-									escreva("Não existe nenhum produto com esse preço no sistema")
+									escreva("Não existe nenhum produto com esse preço ou maior no sistema")
 								}
+									pare
+
+									//estoque = consulta = por preço = MENOR
+									caso 2:
+										escreva("\nEscreva o preço para buscar produtos iguais a ele ou menores: R$")
+									leia(precoU)
+									existe = falso
+									para(l=0; l<li; l++){
+										se(precoU>=m2[l][1] e m1[l][0] != "#"){
+											existe = verdadeiro
+											escreva("\n----Produto ",l, "----")
+											escreva("\nNome do produto: ", m1[l][0], "\t")
+											escreva("\nDescrição do produto: ", m1[l][1], "\t")
+											escreva("\nQuantidade do produto: ", m2[l][0], "\t")
+											escreva("\nPreço do produto: ", m2[l][1], "\t")	
+										} 
+									
+									}
+								se(nao existe){
+									escreva("Não existe nenhum produto com esse preço ou menor no sistema")
+								}
+									pare
+
+									caso contrario:
+										escreva("Opção inválida!")
+								}
+
+
 							pare
 					
 							caso contrario:
@@ -476,7 +510,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 10526; 
+ * @POSICAO-CURSOR = 25; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
