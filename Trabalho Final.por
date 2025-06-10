@@ -56,7 +56,7 @@ programa
 		const inteiro co = 2
 		cadeia m1[li][co], nome, desc
 		inteiro op, contP=0, l, posicao, posicao2
-		real m2[li][co], precoU, precoP, precoT, quantP, quantT, pag[3], quantVendas[li], acumuladorVendas
+		real m2[li][co], precoU, precoP, precoT, quantP, quantT, pag[3], quantVendas[li], acumuladorVendas, precoMenor, precoMaior
 		logico existe, continuar
 
 		para(l=0; l<li; l++){
@@ -367,6 +367,7 @@ programa
 								escreva("\nVocê deseja buscar um produto:")
 								escreva("\n1- Acima de um preço x?")
 								escreva("\n2- Abaixo de um preço x?")
+								escreva("\n3- Entre dois valores x e y?")
 								escreva("\n\nSua opção: ")
 								leia(op)
 
@@ -441,7 +442,7 @@ programa
 											escreva("\nDescrição do produto: ", m1[l][1], "\t")
 											escreva("\nQuantidade do produto: ", m2[l][0], "\t")
 											escreva("\nPreço do produto: ", m2[l][1], "\t")	
-										} 
+										}
 									
 									}
 								se(nao existe){
@@ -449,13 +450,37 @@ programa
 								}
 									pare
 
+									caso 3:
+										escreva("Escreva o menor preço: R$")
+										leia(precoMenor)
+
+										escreva("Escreva o maior preço: R$")
+										leia(precoMaior)
+
+									existe = falso
+									para(l=0; l<contP; l++){
+										se(precoMenor<=m2[l][1] e precoMaior >=m2[l][1]){
+											existe = verdadeiro
+											escreva("\n----Produto ",l, "----")
+											escreva("\nNome do produto: ", m1[l][0], "\t")
+											escreva("\nDescrição do produto: ", m1[l][1], "\t")
+											escreva("\nQuantidade do produto: ", m2[l][0], "\t")
+											escreva("\nPreço do produto: ", m2[l][1], "\t")	
+										}
+									}
+									se(nao existe){
+										escreva("Não existe nenhum produto com esse preço ou menor no sistema")
+									}
+									pare
+
+
 									caso contrario:
 										escreva("Opção inválida!")
 								}
 
 
 							pare
-					
+				
 							caso contrario:
 							escreva("Dígito inválido!")
 						}
@@ -606,7 +631,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 11288; 
+ * @POSICAO-CURSOR = 13076; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
