@@ -4,7 +4,7 @@ programa
 	//formatar
 
 	
-	funcao inteiro buscar(cadeia nome, cadeia m1[][], inteiro contP){
+	funcao inteiro buscarPorNome(cadeia nome, cadeia m1[][], inteiro contP){
 		//não existe
 		inteiro x = -1
 							
@@ -17,6 +17,36 @@ programa
 						
 		retorne x
 	}
+
+	funcao inteiro buscarPorQuant(real quantP, real m2[][], inteiro contP){
+		//não existe
+		inteiro x = -1
+							
+		para(inteiro l = 0; l<contP; l++){
+			se(quantP==m2[l][0] ou quantP<m2[l][0] ou quantP>m2[l][0]){
+				//existe
+				x = l
+			} 
+		}
+						
+		retorne x
+	}
+
+	funcao inteiro buscarPorPreco(real precoU, real m2[][], inteiro contP){
+		//não existe
+		inteiro x = -1
+							
+		para(inteiro l = 0; l<contP; l++){
+			se(precoU==m2[l][0]){
+				//existe
+				x = l
+			} 
+		}
+						
+		retorne x
+	}
+
+	
 
 
 
@@ -74,7 +104,7 @@ programa
 							escreva("Digite o nome: ")
 							leia(nome)
 	
-							posicao = buscar(nome, m1, contP)
+							posicao = buscarPorNome(nome, m1, contP)
 	
 							se(posicao == -1){
 								m1[contP][0] = nome
@@ -115,7 +145,7 @@ programa
 						escreva("Escreva o nome do produto para alterar: ")
 						leia(nome)
 
-						posicao = buscar(nome, m1, contP)
+						posicao = buscarPorNome(nome, m1, contP)
 	
 						se(posicao == -1){
 							escreva("Não existe nenhum produto com esse nome no sistema")
@@ -133,7 +163,7 @@ programa
 										escreva("\nDigite o novo nome: ")
 										leia(nome)
 										
-										posicao = buscar(nome, m1, contP)
+										posicao = buscarPorNome(nome, m1, contP)
 	
 										se(posicao != -1){
 											escreva("Este item já existe no sistema.")
@@ -172,7 +202,7 @@ programa
 						escreva("Escreva o nome do produto para deletar")
 						leia(nome)
 
-						posicao = buscar(nome, m1, contP)
+						posicao = buscarPorNome(nome, m1, contP)
 	
 						se(posicao == -1){
 							escreva("Este item não existe no sistema.")
@@ -196,8 +226,7 @@ programa
 					caso 5:
 						precoT = 0.0
 						quantT = 0.0
-						para(l=0; l<li; l++){
-							se(m1[l][0] != "#"){
+						para(l=0; l<contP; l++){
 								nome = m1[l][0]
 								quantP = m2[l][0]
 								precoU = m2[l][1]
@@ -210,7 +239,6 @@ programa
 								precoT = precoT + precoP
 								quantT = quantT + quantP
 									
-							}
 						}
 						escreva("\n\nPara os ", quantT, " produtos existentes, o valor total que a empresa pode adquirir vendendo-os é R$", precoT)
 					pare
@@ -230,7 +258,7 @@ programa
 								escreva("\nEscreva o nome do produto para buscar: ")
 								leia(nome)
 
-								posicao = buscar(nome, m1, contP)
+								posicao = buscarPorNome(nome, m1, contP)
 	
 								se(posicao == -1){
 									escreva("Este item não existe no sistema.")
@@ -258,9 +286,26 @@ programa
 									caso 1:
 										escreva("\nEscreva a quantidade para buscar produtos iguais a ela ou maiores: ")
 									leia(quantP)
+								
+
+							//		posicao = buscarPorQuant(quantP, m2, contP)
+
+							//		se(posicao == -1){
+							//			escreva("Não existe nenhum produto com essa quantidade ou maior no sistema")
+							//		} senao{
+							//			se(quantP<=m2[l][0]){
+							//				escreva("\n----Produto ",l, "----")
+							//				escreva("\nNome do produto: ", m1[l][0], "\t")
+							//				escreva("\nDescrição do produto: ", m1[l][1], "\t")
+							//				escreva("\nQuantidade do produto: ", m2[l][0], "\t")
+							//				escreva("\nPreço do produto: ", m2[l][1], "\t")	
+							//			} 
+										
+							//		}
+
 									existe = falso
-									para(l=0; l<li; l++){
-										se(quantP<=m2[l][0] e m1[l][0] != "#"){
+									para(l=0; l<contP; l++){
+										se(quantP<=m2[l][0]){ // e m1[l][0] != "#"){
 											existe = verdadeiro
 											escreva("\n----Produto ",l, "----")
 											escreva("\nNome do produto: ", m1[l][0], "\t")
@@ -279,9 +324,24 @@ programa
 									caso 2:
 										escreva("\nEscreva a quantidade para buscar produtos iguais a ela ou menores: ")
 									leia(quantP)
-									existe = falso
-									para(l=0; l<li; l++){
-										se(quantP>=m2[l][0] e m1[l][0] != "#"){
+						
+							//		posicao = buscarPorQuant(quantP, m2, contP)
+
+							//		se(posicao == -1){
+							//			escreva("Não existe nenhum produto com essa quantidade ou menor no sistema")
+							//		} senao{
+							//			se(quantP>=m2[l][0]){ 
+							//				escreva("\n----Produto ",l, "----")
+							//				escreva("\nNome do produto: ", m1[l][0], "\t")
+							//				escreva("\nDescrição do produto: ", m1[l][1], "\t")
+							//				escreva("\nQuantidade do produto: ", m2[l][0], "\t")
+							//				escreva("\nPreço do produto: ", m2[l][1], "\t")	
+							//			}
+							//		}
+
+									existe = falso		
+									para(l=0; l<contP; l++){
+										se(quantP>=m2[l][0]){ // e m1[l][0] != "#"){
 											existe = verdadeiro
 											escreva("\n----Produto ",l, "----")
 											escreva("\nNome do produto: ", m1[l][0], "\t")
@@ -289,10 +349,10 @@ programa
 											escreva("\nQuantidade do produto: ", m2[l][0], "\t")
 											escreva("\nPreço do produto: ", m2[l][1], "\t")	
 										} 
-									
+							
 									}
 								se(nao existe){
-									escreva("Não existe nenhum produto com essa quantidade ou menor no sistema")
+							 		escreva("Não existe nenhum produto com essa quantidade ou menor no sistema")
 								}
 									pare
 
@@ -315,9 +375,27 @@ programa
 									caso 1:
 										escreva("\nEscreva o preço para buscar produtos iguais a ele ou maiores: R$")
 									leia(precoU)
+
+
+								//	posicao = buscarPorPreco(precoU, m2, contP)
+
+								//	se(posicao == -1){
+								//		escreva("Não existe nenhum produto com esse preço ou maior no sistema")
+								//	} senao{
+								//		se(precoU<=m2[l][1]){ 
+								//			escreva("\n----Produto ",l, "----")
+								//			escreva("\nNome do produto: ", m1[l][0], "\t")
+								//			escreva("\nDescrição do produto: ", m1[l][1], "\t")
+								//			escreva("\nQuantidade do produto: ", m2[l][0], "\t")
+								//			escreva("\nPreço do produto: ", m2[l][1], "\t")	
+								//		} 
+								//	}
+
+
+									
 									existe = falso
-									para(l=0; l<li; l++){
-										se(precoU<=m2[l][1] e m1[l][0] != "#"){
+									para(l=0; l<contP; l++){
+										se(precoU<=m2[l][1]){ ///e m1[l][0] != "#"){
 											existe = verdadeiro
 											escreva("\n----Produto ",l, "----")
 											escreva("\nNome do produto: ", m1[l][0], "\t")
@@ -336,9 +414,27 @@ programa
 									caso 2:
 										escreva("\nEscreva o preço para buscar produtos iguais a ele ou menores: R$")
 									leia(precoU)
+
+
+								//	posicao = buscarPorPreco(precoU, m2, contP)
+
+								//	se(posicao == -1){
+								//		escreva("Não existe nenhum produto com esse preço ou menor no sistema")
+								//	} senao{
+								//		se(precoU>=m2[l][1]){ 
+								//			escreva("\n----Produto ",l, "----")
+								//			escreva("\nNome do produto: ", m1[l][0], "\t")
+								//			escreva("\nDescrição do produto: ", m1[l][1], "\t")
+								//			escreva("\nQuantidade do produto: ", m2[l][0], "\t")
+								//			escreva("\nPreço do produto: ", m2[l][1], "\t")	
+								//		} 
+								//	}
+
+
+									
 									existe = falso
-									para(l=0; l<li; l++){
-										se(precoU>=m2[l][1] e m1[l][0] != "#"){
+									para(l=0; l<contP; l++){
+										se(precoU>=m2[l][1]){ // e m1[l][0] != "#"){
 											existe = verdadeiro
 											escreva("\n----Produto ",l, "----")
 											escreva("\nNome do produto: ", m1[l][0], "\t")
@@ -406,7 +502,7 @@ programa
 						faca{
 						escreva("\n\nQual o nome do produto que você gostaria de comprar? ")
 						leia(nome)
-						posicao = buscar(nome, m1, contP)
+						posicao = buscarPorNome(nome, m1, contP)
 							se(posicao == -1){
 								continuar = falso
 								escreva("\nEste item não existe no sistema")
@@ -510,7 +606,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 25; 
+ * @POSICAO-CURSOR = 11288; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
