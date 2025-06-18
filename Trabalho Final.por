@@ -20,6 +20,7 @@ programa
 		escreva("\nDescrição do produto: ", m1[l][1], "\t")
 		escreva("\nQuantidade do produto: ", m2[l][0], "\t")
 		escreva("\nPreço do produto: ", m2[l][1], "\t")
+		escreva("\n")
 	}
 
 	funcao digitoInvalido(){
@@ -61,8 +62,8 @@ programa
 			caso 3:
 				escreva("\n\nMenu VENDA do <MARI MARKET>---------------------------")
 				escreva("\n1- Realizar uma venda")
-				escreva("\n2- Listar produtos vendidos")
-				escreva("\n3- Todas as vendas")
+				escreva("\n2- Listar produtos vendidos no dia e total")
+				escreva("\n3- Todas as vendas por método de pagamento e total")
 				escreva("\n4- Sair")
 				escreva("\nSua opção: ")
 			pare
@@ -89,7 +90,7 @@ programa
 			}
 		}
 
-		escreva("---------------------------------------------------------------SEJA BEM VINVO AO <MARI MARKET>---------------------------------------------------------------\n\n")
+		escreva("---------------------------------------------------------------SEJA BEM VINDO AO <MARI MARKET>---------------------------------------------------------------\n\n")
 		
 		faca{
 			//menu principal
@@ -131,10 +132,13 @@ programa
 								leia(m2[contP][1])
 	
 								contP++
+
+								escreva("\nItem '", nome, "' adicionado!")
 							} senao{
 								escreva("\nEste item já existe no sistema. Digite a quantidade a adicionar: ")
 								leia(quantP)
 								m2[posicao][0] = m2[posicao][0] + quantP
+								escreva("\nAdicionado ", quantP, " ao produto '", m1[posicao][0], "'.")
 							}	
 						}
 									
@@ -164,7 +168,7 @@ programa
 							escreva("\n2- Descrição")
 							escreva("\n3- Quantidade")
 							escreva("\n4- Preço")
-							escreva("Sua opção: ")
+							escreva("\nSua opção: ")
 							leia(op)
 	
 							escolha(op){
@@ -178,6 +182,7 @@ programa
 									escreva("\nEste item já existe no sistema.")
 								} senao{
 									m1[posicao2][0] = nome
+									escreva("Item '", nome, "' com o nome atualizado: '", nome, "'")
 								}								
 								pare
 									
@@ -185,18 +190,21 @@ programa
 									escreva("\nDigite a nova descrição: ")
 									leia(desc)
 									m1[posicao][1] = desc
+									escreva("Item '", m1[posicao2][0], "' com a descrição atualizada: '", desc, "'")
 								pare
 									
 								caso 3:
 									escreva("\nDigite a nova quantidade: ")
 									leia(quantP)
 									m2[posicao][0] = quantP
+									escreva("Item '", m1[posicao2][0], "' com a quantidade atualizada: ", quantP)
 								pare
 									
 								caso 4:
 									escreva("\nDigite o novo preço: ")
 									leia(precoU)
 									m2[posicao][1] = precoU
+									escreva("Item '", m1[posicao2][0], "' com o preço atualizado: R$", precoU)
 								pare
 									
 								caso contrario:
@@ -223,7 +231,7 @@ programa
 			
 							contP--
 		
-							escreva("\nProduto '",posicao, "' excluído")
+							escreva("\nProduto '",nome, "', na posição ",posicao, ", foi excluído.")
 						}
 						
 					
@@ -241,13 +249,13 @@ programa
 	
 							escreva("\n----Produto ",l, "----")
 							escreva("\nExiste(m) ",quantP, " ", nome, "(s) no sistema, cada uma custando ", precoU, " reais.") 
-							escreva("\nEntão o seu valor total	referente a quantidade de produtos é R$", precoP, " reais.")
+							escreva("\nEntão o seu valor total	referente a quantidade de produtos é R$", precoP, " reais.\n")
 									
 							precoT = precoT + precoP
 							quantT = quantT + quantP
 									
 						}
-						escreva("\n\nPara os ", quantT, " produtos existentes, o valor total que a empresa pode adquirir vendendo-os é R$", precoT)
+						escreva("\n\n----Para os ", quantT, " produtos existentes, o valor total que a empresa pode adquirir vendendo-os é R$", precoT)
 					pare
 
 					//estoque = consultar um produto
@@ -313,6 +321,7 @@ programa
 										para(l=0; l<contP; l++){
 											se(quantP>=m2[l][0]){ 
 											existe = verdadeiro
+											listarTodos(l, m1, m2)
 											}
 										}
 										se(nao existe){
@@ -495,13 +504,14 @@ programa
 					caso 2:
 						escreva("\nForam vendidos no dia de hoje:")
 						para(l=0; l<contP; l++){
-							escreva("\n --> ", quantVendas[l], " ", m1[l][0], "(s) = R$", quantVendas[0] * m2[l][1])
+							escreva("\n --> ", quantVendas[l], " ", m1[l][0], "(s), total = R$", quantVendas[l] * m2[l][1])
 						}
+						escreva("\n\nSendo o total: R$", (pag[0] + pag[1] + pag[2]))
 					pare
 
 					//venda = todas as vendas
 					caso 3:
-						escreva("\nO valor arrecadado no dia foi R$", (pag[0] + pag[1] + pag[2]), ", sendo:")
+						escreva("\nO valor total arrecadado no dia foi R$", (pag[0] + pag[1] + pag[2]), ", sendo:")
 						escreva("\nNo PIX: R$", pag[0])
 						escreva("\nNo DÉBITO: R$", pag[1])
 						escreva("\nNo CRÉDITO: R$", pag[2])
@@ -534,9 +544,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 839; 
+ * @POSICAO-CURSOR = 13425; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {m1, 3, 50, 2}-{m2, 29, 59, 2};
+ * @SIMBOLOS-INSPECIONADOS = {m1, 3, 50, 2}-{m2, 30, 59, 2};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
