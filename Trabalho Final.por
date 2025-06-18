@@ -138,7 +138,7 @@ programa
 								escreva("\nEste item já existe no sistema. Digite a quantidade a adicionar: ")
 								leia(quantP)
 								m2[posicao][0] = m2[posicao][0] + quantP
-								escreva("\nAdicionado ", quantP, " ao produto '", m1[posicao][0], "'.")
+								escreva("\nAdicionado(a) ", quantP, " ", nome, "(s) ao sistema.")
 							}	
 						}
 									
@@ -182,7 +182,7 @@ programa
 									escreva("\nEste item já existe no sistema.")
 								} senao{
 									m1[posicao2][0] = nome
-									escreva("Item '", nome, "' com o nome atualizado: '", nome, "'")
+									escreva("\nItem '", nome, "' com o nome atualizado: '", nome, "'")
 								}								
 								pare
 									
@@ -197,14 +197,14 @@ programa
 									escreva("\nDigite a nova quantidade: ")
 									leia(quantP)
 									m2[posicao][0] = quantP
-									escreva("Item '", m1[posicao2][0], "' com a quantidade atualizada: ", quantP)
+									escreva("\nItem '", m1[posicao2][0], "' com a quantidade atualizada: ", quantP)
 								pare
 									
 								caso 4:
 									escreva("\nDigite o novo preço: ")
 									leia(precoU)
 									m2[posicao][1] = precoU
-									escreva("Item '", m1[posicao2][0], "' com o preço atualizado: R$", precoU)
+									escreva("\nItem '", m1[posicao2][0], "' com o preço atualizado: R$", precoU)
 								pare
 									
 								caso contrario:
@@ -544,7 +544,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 13425; 
+ * @POSICAO-CURSOR = 5245; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = {m1, 3, 50, 2}-{m2, 30, 59, 2};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
